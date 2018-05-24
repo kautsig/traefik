@@ -81,6 +81,7 @@ func createAuthDigestHandler(digestAuth *goauth.DigestAuth, authConfig *types.Au
 			if authConfig.HeaderField != "" {
 				r.Header[authConfig.HeaderField] = []string{username}
 			}
+			r.Header.Del("Authorization")			
 			next.ServeHTTP(w, r)
 		}
 	})
@@ -96,6 +97,7 @@ func createAuthBasicHandler(basicAuth *goauth.BasicAuth, authConfig *types.Auth)
 			if authConfig.HeaderField != "" {
 				r.Header[authConfig.HeaderField] = []string{username}
 			}
+			r.Header.Del("Authorization")
 			next.ServeHTTP(w, r)
 		}
 	})
